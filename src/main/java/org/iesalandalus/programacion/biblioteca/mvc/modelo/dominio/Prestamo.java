@@ -79,8 +79,12 @@ public class Prestamo {
 		if (libro == null) {
 			throw new NullPointerException("ERROR: El libro no puede ser nulo.");
 		}
-		libro = new Libro(libro);
-		this.libro = libro;
+		if (libro instanceof LibroEscrito) {
+			this.libro = new LibroEscrito((LibroEscrito) libro);
+		} else if (libro instanceof AudioLibro) {
+			this.libro = new AudioLibro((AudioLibro) libro);
+		}
+		
 	}
 
 	public LocalDate getFechaPrestamo() {
