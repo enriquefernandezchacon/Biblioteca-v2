@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.iesalandalus.programacion.biblioteca.mvc.modelo.Modelo;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.IModelo;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
@@ -16,9 +16,9 @@ import org.iesalandalus.programacion.biblioteca.mvc.vista.Vista;
 public class Controlador {
 
 	Vista vista;
-	Modelo modelo;
+	IModelo modelo;
 
-	public Controlador(Modelo modelo, Vista vista) {
+	public Controlador(IModelo modelo, Vista vista) {
 		if (modelo == null) {
 			throw new IllegalArgumentException("ERROR: El modelo no puede ser nulo.");
 		}

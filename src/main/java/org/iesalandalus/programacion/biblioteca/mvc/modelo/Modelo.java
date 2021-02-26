@@ -1,7 +1,6 @@
 package org.iesalandalus.programacion.biblioteca.mvc.modelo;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,20 +10,20 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
-import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.Alumnos;
-import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.Libros;
-import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.Prestamos;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.IAlumnos;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.ILibros;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.IPrestamos;
 
-public class Modelo {
+public class Modelo implements IModelo {
 
-	private Prestamos prestamos;
-	private Libros libros;
-	private Alumnos alumnos;
+	private IPrestamos prestamos;
+	private ILibros libros;
+	private IAlumnos alumnos;
 	
-	public Modelo() {
-		prestamos = new Prestamos();
-		libros = new Libros();
-		alumnos = new Alumnos();
+	public Modelo(IFuenteDatos fuenteDatos) {
+		prestamos = fuenteDatos.crearPrestamos();
+		libros = fuenteDatos.crearLibros();
+		alumnos = fuenteDatos.crearAlumnos();
 	}
 	
 	public void insertar(Alumno alumno) throws OperationNotSupportedException , IllegalArgumentException, NullPointerException {

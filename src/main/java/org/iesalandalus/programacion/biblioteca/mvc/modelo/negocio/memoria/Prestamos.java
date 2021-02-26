@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio;
+package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.memoria;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,8 +13,9 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.IPrestamos;
 
-public class Prestamos {
+public class Prestamos implements IPrestamos {
 
 	private List<Prestamo> coleccionPrestamos;
 
@@ -73,7 +74,7 @@ public class Prestamos {
 		List<Prestamo> copiaPrestamos = new ArrayList<>();
 		for (Prestamo prestamo : coleccionPrestamos) {
 			if (prestamo.getLibro().equals(libro)) {
-				copiaPrestamos.add(prestamo);
+				copiaPrestamos.add(new Prestamo(prestamo));
 			}
 		}
 		copiaPrestamos.sort(comparadorPrestamo);
@@ -92,7 +93,7 @@ public class Prestamos {
 		List<Prestamo> copiaPrestamos = new ArrayList<>();
 		for (Prestamo prestamo : coleccionPrestamos) {
 			if (mismoMes(fecha, prestamo.getFechaPrestamo())) {
-				copiaPrestamos.add(prestamo);
+				copiaPrestamos.add(new Prestamo(prestamo));
 			}
 		}
 		copiaPrestamos.sort(comparadorPrestamo);
@@ -104,7 +105,7 @@ public class Prestamos {
 		List<Prestamo> prestamosMensuales = get(fecha);
 		for (Prestamo prestamo : prestamosMensuales) {
 			Curso cursoAlumno = prestamo.getAlumno().getCurso();
-			estadisticasMensualesPorCurso.put(cursoAlumno, prestamosMensuales.size());
+			estadisticasMensualesPorCurso.put(cursoAlumno, estadisticasMensualesPorCurso.get(cursoAlumno) + prestamo.getPuntos());
 		}
 		return estadisticasMensualesPorCurso;
 	}
@@ -135,7 +136,7 @@ public class Prestamos {
 		}
 		int indice = coleccionPrestamos.indexOf(prestamo);
 		if (indice == -1) {
-			coleccionPrestamos.add(prestamo);
+			coleccionPrestamos.add(new Prestamo(prestamo));
 		} else {
 			throw new OperationNotSupportedException("ERROR: Ya existe un préstamo igual.");
 		}
