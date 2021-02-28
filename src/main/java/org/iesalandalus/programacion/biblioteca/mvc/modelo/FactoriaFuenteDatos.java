@@ -12,6 +12,7 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.memoria.Facto
 public enum FactoriaFuenteDatos {
 	
 	MEMORIA {
+		@Override
 		public IFuenteDatos crear() {
 			return new FactoriaFuenteDatosMemoria();
 		}
